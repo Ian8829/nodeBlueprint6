@@ -6,8 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 let swig = require('swig');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
+const index = require('./controllers/index');
 
 const app = express();
 
@@ -25,8 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', index.show);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -45,5 +43,7 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(3000, console.log(`Server is running at port 3000`));
 
 module.exports = app;
