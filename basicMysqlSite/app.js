@@ -13,6 +13,7 @@ const app = express();
 
 // view engine setup
 swig = new swig.Swig();
+app.set('views', path.join(__dirname, 'views/pages'));
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
 
