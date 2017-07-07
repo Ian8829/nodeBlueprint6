@@ -7,6 +7,9 @@ const bodyParser = require('body-parser');
 let swig = require('swig');
 
 const index = require('./controllers/index');
+// inject band, user controller
+const bands = require('./controllers/Band');
+const users = require('./controllers/User');
 
 const app = express();
 
@@ -26,6 +29,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index.show);
 
+// Defining route to list and post
+app.get('/bands', bands.list);
+app.get('/band/:id', bands.byId);
+app.post('/bands', bands.create);
+app.put('/band/:id', bands.update);
+app.delete('/band/:id', bands.delete);
+
+// Defining route to list and post users
+app.get('/users', users.list);
+app.post('/users', users.create);
+
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
@@ -43,7 +57,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(3000, console.log(`Server is running at port 3000`));
 
 module.exports = app;

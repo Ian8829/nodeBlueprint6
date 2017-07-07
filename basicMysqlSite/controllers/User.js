@@ -2,7 +2,7 @@ const models = require('../models/index');
 const User = require('../models/user');
 
 // Create Users
-export.create = (req, res) => {
+exports.create = (req, res) => {
   // create a new instance of the Users model with req body
   models.User.create({
     name: req.body.name,
